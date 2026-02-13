@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
-  <title>PAYMENT X — INTRO PREMIUM</title>
+  <title>PAYMENT X — PREMIUM SOUND</title>
+  
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Font: Clash Display + Inter -->
+  
+  <!-- Google Font: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
+    /* ========== RESET & GLOBAL ========== */
     * {
       margin: 0;
       padding: 0;
@@ -22,7 +26,7 @@
       overflow-x: hidden;
     }
 
-    /* CANVAS UNTUK PARTICLES */
+    /* ========== PARTICLES BACKGROUND ========== */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -33,7 +37,7 @@
       pointer-events: none;
     }
 
-    /* INTRO SECTION */
+    /* ========== INTRO PREMIUM ========== */
     .intro-premium {
       position: relative;
       min-height: 100vh;
@@ -64,7 +68,6 @@
       animation: fadeScale 1.2s ease;
     }
 
-    /* BADGE FUTURISTIK */
     .neon-badge {
       display: inline-block;
       padding: 0.6rem 1.8rem;
@@ -80,7 +83,6 @@
       box-shadow: 0 0 20px rgba(0,255,255,0.2);
     }
 
-    /* TYPING EFFECT */
     .typing-wrapper {
       display: flex;
       justify-content: center;
@@ -114,7 +116,6 @@
       animation: glitch 3s infinite;
     }
 
-    /* COUNTER DIGITAL */
     .ready-counter {
       display: flex;
       gap: 20px;
@@ -163,15 +164,147 @@
       border-color: cyan;
     }
 
-    .btn-neon i {
-      font-size: 1.5rem;
-    }
-
-    /* VIBRATION EFFECT (seperti suara) */
     .vibrate {
       animation: vibrate 0.3s ease;
     }
 
+    /* ========== PAYMENT AREA ========== */
+    .payment-premium {
+      background: #0e121a;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 5;
+      border-top: 1px solid rgba(0,255,255,0.2);
+      display: none;
+    }
+
+    .payment-container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .payment-card {
+      background: rgba(18, 25, 40, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 230, 255, 0.15);
+      border-radius: 36px;
+      padding: 1.8rem;
+      box-shadow: 0 20px 35px -5px rgba(0,0,0,0.5);
+    }
+
+    .payment-card h3 {
+      color: #d0f0ff;
+    }
+
+    .nomor-payment {
+      color: white;
+      background: rgba(0,0,0,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 16px;
+      font-size: 1.4rem;
+    }
+
+    .btn-eye, .btn-qris-reveal {
+      background: #1f2a44;
+      border: 1px solid cyan;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+      font-weight: 600;
+    }
+
+    .btn-eye:hover, .btn-qris-reveal:hover {
+      background: cyan;
+      color: black;
+    }
+
+    .qris-section {
+      background: rgba(18, 25, 40, 0.8);
+      border: 1px solid rgba(0,255,255,0.2);
+      border-radius: 36px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    /* ========== MODAL POP UP QRIS ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.95);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 24px;
+      box-shadow: 0 0 50px cyan;
+      border: 2px solid cyan;
+      animation: zoomIn 0.3s;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      color: white;
+      font-size: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 0 0 20px cyan;
+    }
+
+    .close-modal:hover {
+      color: cyan;
+    }
+
+    .qris-image-clickable {
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .qris-image-clickable:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px cyan;
+    }
+        /* ========== AUDIO CONTROL BUTTON ========== */
+    .music-control {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      background: rgba(0, 20, 40, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid cyan;
+      border-radius: 60px;
+      padding: 0.8rem 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+    }
+
+    .music-control i {
+      font-size: 1.4rem;
+      color: cyan;
+    }
+
+    /* ========== ANIMATIONS ========== */
     @keyframes vibrate {
       0% { transform: translateX(0); }
       20% { transform: translateX(-5px); }
@@ -181,7 +314,6 @@
       100% { transform: translateX(0); }
     }
 
-    /* ANIMASI */
     @keyframes pulseGlow {
       0% { opacity: 0.3; }
       100% { opacity: 0.7; }
@@ -206,69 +338,42 @@
       35% { transform: none; opacity: 1; }
     }
 
-    /* PAYMENT AREA (sama seperti sebelumnya, tapi dark theme biar premium) */
-    .payment-premium {
-      background: #0e121a;
-      padding: 4rem 2rem;
-      position: relative;
-      z-index: 5;
-      border-top: 1px solid rgba(0,255,255,0.2);
-      display: none;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .payment-container {
-      max-width: 1300px;
-      margin: 0 auto;
+    @keyframes zoomIn {
+      from { transform: scale(0.7); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    /* DARK CARD STYLE */
-    .payment-card {
-      background: rgba(18, 25, 40, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0, 230, 255, 0.15);
-      border-radius: 36px;
-      padding: 1.8rem;
-      box-shadow: 0 20px 35px -5px rgba(0,0,0,0.5);
-    }
-
-    .payment-card h3 {
-      color: #d0f0ff;
-    }
-
-    .nomor-payment {
-      color: white;
-      background: rgba(0,0,0,0.3);
-      padding: 0.5rem 1rem;
-      border-radius: 16px;
-    }
-
-    .btn-eye, .btn-qris-reveal {
-      background: #1f2a44;
-      border: 1px solid cyan;
-      color: white;
-    }
-
-    .qris-section {
-      background: rgba(18, 25, 40, 0.8);
-      border: 1px solid rgba(0,255,255,0.2);
-    }
-
-    .small-note {
-      color: #9ab8d9;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 700px) {
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 800px) {
+      .payment-grid { grid-template-columns: 1fr; }
+      .qris-dual { grid-template-columns: 1fr; }
       .ready-counter { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS PARTICLES (BACKGROUND BERGERAK) -->
+  <!-- ========== PARTICLES CANVAS ========== -->
   <canvas id="particle-canvas"></canvas>
 
-  <!-- INTRO SECTION PREMIUM -->
+  <!-- ========== AUDIO SYSTEM ========== -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://files.catbox.moe/mog6bq.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <!-- ========== MUSIC CONTROL BUTTON ========== -->
+  <div id="musicToggleBtn" class="music-control">
+    <i id="musicIcon" class="fas fa-volume-mute"></i>
+    <span id="musicText">Putar Musik</span>
+  </div>
+
+  <!-- ========== INTRO SECTION ========== -->
   <section class="intro-premium">
     <div class="glow-overlay"></div>
     
@@ -289,36 +394,42 @@
         <i class="fas fa-shield-halved"></i>
       </h2>
 
-      <!-- COUNTER EFFECT (seperti loading system) -->
+      <!-- COUNTER ANIMATION -->
       <div class="ready-counter">
         <div class="counter-item" id="counter1">00</div>
         <div class="counter-item" id="counter2">00</div>
         <div class="counter-item" id="counter3">00</div>
       </div>
 
-      <!-- TOMBOL DENGAN EFEK GETAR (VIRTUAL SOUND) -->
+      <!-- TOMBOL BUKA PAYMENT + TRIGGER MUSIK -->
       <button id="enterPaymentBtn" class="btn-neon">
         <i class="fas fa-eye"></i> BUKA PAYMENT 
         <i class="fas fa-arrow-right"></i>
       </button>
 
       <div style="margin-top: 2.5rem; color: rgba(180,240,255,0.5); font-size: 0.9rem;">
-        <i class="fas fa-volume-up"></i> efek suara virtual (getaran)
+        <i class="fas fa-volume-up"></i> musik aktif setelah klik
       </div>
     </div>
   </section>
- <!-- PAYMENT AREA (SAMA SEPERTI SEBELUMNYA, TEMA GELAP) -->
+
+  <!-- ========== PAYMENT AREA ========== -->
   <div id="paymentArea" class="payment-premium">
     <div class="payment-container">
+      
+      <!-- HEADER -->
       <div style="text-align: center; margin-bottom: 3rem;">
         <h2 style="color: white; font-size: 2.5rem; text-shadow: 0 0 10px cyan;">
           <i class="fas fa-unlock-alt" style="color: cyan;"></i> PINTU PEMBAYARAN
         </h2>
-        <p style="color: #aad0ff;">klik 👁️ untuk menampilkan nomor / QR</p>
+        <p style="color: #aad0ff; font-size: 1.2rem;">
+          <i class="fas fa-search"></i> klik 👁️ untuk menampilkan nomor / QR
+        </p>
       </div>
 
       <!-- GRID DANA & SEABANK -->
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem;">
+        
         <!-- DANA CARD -->
         <div class="payment-card">
           <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
@@ -327,11 +438,12 @@
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 1.2rem; border-radius: 20px;">
             <span id="danaNumber" class="nomor-payment" style="filter: blur(5px);">087753513090</span>
-            <button id="toggleDanaBtn" class="btn-eye" style="display: flex; gap: 8px;">
+            <button id="toggleDanaBtn" class="btn-eye">
               <i class="fas fa-eye-slash"></i> Tampilkan
             </button>
           </div>
         </div>
+
         <!-- SEABANK CARD -->
         <div class="payment-card">
           <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
@@ -340,36 +452,65 @@
           </div>
           <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 1.2rem; border-radius: 20px;">
             <span id="seabankNumber" class="nomor-payment" style="filter: blur(5px);">901517870612</span>
-            <button id="toggleSeabankBtn" class="btn-eye" style="display: flex; gap: 8px;">
+            <button id="toggleSeabankBtn" class="btn-eye">
               <i class="fas fa-eye-slash"></i> Tampilkan
             </button>
           </div>
         </div>
       </div>
 
-      <!-- QRIS SECTION -->
-      <div class="qris-section" style="padding: 2rem; border-radius: 36px;">
+      <!-- QRIS SECTION DENGAN POP UP -->
+      <div class="qris-section">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+          
+          <!-- Logo QRIS -->
           <div style="text-align: center; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 24px;">
             <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" style="width: 140px;" alt="Logo QRIS">
-            <p style="color: cyan; margin-top: 1rem;">Logo Resmi QRIS</p>
+            <p style="color: cyan; margin-top: 1rem; font-weight: 600;">Logo Resmi QRIS</p>
+            <p style="color: #aad0ff; font-size: 1.5rem; font-weight: 700; margin-top: 0.5rem;">QRIS</p>
           </div>
+          
+          <!-- QRIS Image + Tombol -->
           <div style="text-align: center;">
-            <img id="qrisImage" src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" style="width: 100%; max-width: 300px; border-radius: 20px; filter: blur(10px); margin-bottom: 1rem;" alt="QRIS">
-            <button id="toggleQrisBtn" class="btn-qris-reveal" style="padding: 1rem 2rem;">
-              <i class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️
-            </button>
+            <img 
+              id="qrisImage" 
+              src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" 
+              style="width: 100%; max-width: 300px; border-radius: 20px; filter: blur(10px); margin-bottom: 1rem; cursor: pointer;"
+              alt="QRIS Code"
+              class="qris-image-clickable"
+              title="Klik untuk perbesar"
+            >
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+              <button id="toggleQrisBtn" class="btn-qris-reveal">
+                <i class="fas fa-eye-slash"></i> Tampilkan QRIS
+              </button>
+              <button id="popupQrisBtn" class="btn-qris-reveal" style="background: #0e1a2b;">
+                <i class="fas fa-expand"></i> Perbesar
+              </button>
+            </div>
+            <p style="color: #8bb0cc; margin-top: 1rem;">🔍 klik gambar atau tombol perbesar</p>
           </div>
         </div>
       </div>
-      <div style="text-align: center; margin-top: 2rem; color: #8bb0cc;">
-        <i class="fas fa-shield"></i> data aman · klik mata untuk lihat
+      
+      <!-- FOOTER -->
+      <div style="text-align: center; margin-top: 2rem; color: #8bb0cc; display: flex; justify-content: center; gap: 20px;">
+        <span><i class="fas fa-shield"></i> data aman</span>
+        <span><i class="fas fa-eye"></i> klik mata untuk lihat</span>
       </div>
     </div>
   </div>
+   <!-- ========== MODAL POP UP QRIS ========== -->
+  <div id="qrisModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalQrisImage" src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png">
+  </div>
 
+  <!-- ========== JAVASCRIPT ========== -->
   <script>
-    // ==================== PARTICLES BACKGROUND ====================
+    // ====================================
+    // 1. PARTICLES BACKGROUND
+    // ====================================
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -399,10 +540,8 @@
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.fill();
-        
         p.x += p.speedX;
         p.y += p.speedY;
-        
         if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
         if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
       }
@@ -419,16 +558,15 @@
     createParticles();
     drawParticles();
 
-    // ==================== TYPING EFFECT ====================
+    // ====================================
+    // 2. TYPING EFFECT
+    // ====================================
     const typingElement = document.getElementById('typingElement');
     const texts = ['Selamat Datang', 'di Payment X', '100% Aman', 'Super Cepat'];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    let textIndex = 0, charIndex = 0, isDeleting = false;
 
     function typeEffect() {
       const currentText = texts[textIndex];
-      
       if (isDeleting) {
         typingElement.textContent = currentText.substring(0, charIndex - 1);
         charIndex--;
@@ -436,7 +574,6 @@
         typingElement.textContent = currentText.substring(0, charIndex + 1);
         charIndex++;
       }
-
       if (!isDeleting && charIndex === currentText.length) {
         isDeleting = true;
         setTimeout(typeEffect, 2000);
@@ -450,7 +587,9 @@
     }
     typeEffect();
 
-    // ==================== COUNTER ANIMATION ====================
+    // ====================================
+    // 3. COUNTER ANIMATION
+    // ====================================
     function animateCounter(elementId, target) {
       let count = 0;
       const interval = setInterval(() => {
@@ -467,14 +606,42 @@
     animateCounter('counter2', 88);
     animateCounter('counter3', 77);
 
-    // ==================== REVEAL PAYMENT + EFEK GETAR ====================
+    // ====================================
+    // 4. AUDIO SYSTEM + MUSIC CONTROL
+    // ====================================
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicText = document.getElementById('musicText');
+    
+    let isMusicPlaying = false;
+    let musicStarted = false;
+
+    // Fungsi mulai musik (dipanggil pertama kali)
+    function startMusic() {
+      if (!musicStarted) {
+        bgMusic.play().then(() => {
+          isMusicPlaying = true;
+          musicStarted = true;
+          musicIcon.className = 'fas fa-volume-up';
+          musicText.textContent = 'Matikan Musik';
+        }).catch(error => {
+          console.log('Audio autoplay blocked, user perlu interaksi');
+        });
+      }
+    }
+
+    // Tombol BUKA PAYMENT -> trigger musik + reveal payment
     const enterBtn = document.getElementById('enterPaymentBtn');
     const paymentArea = document.getElementById('paymentArea');
 
     enterBtn.addEventListener('click', function(e) {
-      // Efek getar (virtual sound)
+      // Efek getar
       this.classList.add('vibrate');
       setTimeout(() => this.classList.remove('vibrate'), 300);
+      
+      // Mulai musik (kalau belum mulai)
+      startMusic();
       
       // Munculkan payment area
       paymentArea.style.display = 'block';
@@ -485,11 +652,36 @@
       }, 150);
     });
 
-    // ==================== TOGGLE DANA, SEABANK, QRIS ====================
-    // DANA
+    // Tombol toggle musik manual
+    musicBtn.addEventListener('click', function() {
+      if (musicStarted && isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+        musicIcon.className = 'fas fa-volume-mute';
+        musicText.textContent = 'Putar Musik';
+      } else {
+        if (!musicStarted) {
+          // Kalau belum pernah start, start dulu
+          startMusic();
+        } else {
+          bgMusic.play();
+          isMusicPlaying = true;
+          musicIcon.className = 'fas fa-volume-up';
+          musicText.textContent = 'Matikan Musik';
+        }
+      }
+    });
+
+    // Sembunyikan payment area di awal
+    paymentArea.style.display = 'none';
+
+    // ====================================
+    // 5. TOGGLE DANA (BLUR/UNBLUR)
+    // ====================================
     const danaSpan = document.getElementById('danaNumber');
     const danaBtn = document.getElementById('toggleDanaBtn');
     let danaBlur = true;
+
     danaBtn.addEventListener('click', function() {
       if (danaBlur) {
         danaSpan.style.filter = 'none';
@@ -502,10 +694,13 @@
       }
     });
 
-    // SEABANK
+    // ====================================
+    // 6. TOGGLE SEABANK (BLUR/UNBLUR)
+    // ====================================
     const seabankSpan = document.getElementById('seabankNumber');
     const seabankBtn = document.getElementById('toggleSeabankBtn');
     let seabankBlur = true;
+
     seabankBtn.addEventListener('click', function() {
       if (seabankBlur) {
         seabankSpan.style.filter = 'none';
@@ -518,24 +713,74 @@
       }
     });
 
-    // QRIS
+    // ====================================
+    // 7. TOGGLE QRIS (BLUR/UNBLUR)
+    // ====================================
     const qrisImage = document.getElementById('qrisImage');
     const qrisBtn = document.getElementById('toggleQrisBtn');
     let qrisBlur = true;
-    qrisBtn.addEventListener('click', function() {
-      if (qrisBlur) {
-        qrisImage.style.filter = 'none';
-        qrisBtn.innerHTML = '<i class="fas fa-eye"></i> Sembunyikan Kode QRIS 👁️';
-        qrisBlur = false;
-      } else {
+    
+    function setQrisBlur(blur) {
+      if (blur) {
         qrisImage.style.filter = 'blur(10px)';
-        qrisBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️';
+        qrisBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tampilkan QRIS';
         qrisBlur = true;
+      } else {
+        qrisImage.style.filter = 'none';
+        qrisBtn.innerHTML = '<i class="fas fa-eye"></i> Sembunyikan QRIS';
+        qrisBlur = false;
+      }
+    }
+    
+    qrisBtn.addEventListener('click', function() {
+      setQrisBlur(qrisBlur ? false : true);
+    });
+
+    // Set initial blur
+    setQrisBlur(true);
+
+    // ====================================
+    // 8. MODAL POP UP QRIS
+    // ====================================
+    const modal = document.getElementById('qrisModal');
+    const modalImg = document.getElementById('modalQrisImage');
+    const closeBtn = document.querySelector('.close-modal');
+    const popupBtn = document.getElementById('popupQrisBtn');
+
+    // Fungsi buka modal
+    function openModal() {
+      modal.style.display = 'flex';
+    }
+
+    // Klik gambar QRIS
+    qrisImage.addEventListener('click', function() {
+      openModal();
+    });
+
+    // Klik tombol perbesar
+    popupBtn.addEventListener('click', function() {
+      openModal();
+    });
+
+    // Klik close
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    // Klik di luar modal
+    window.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
       }
     });
 
-    // Sembunyikan payment area di awal
-    paymentArea.style.display = 'none';
+    // ESC close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+      }
+    });
+
   </script>
 </body>
-</html> 
+</html>
