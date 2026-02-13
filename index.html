@@ -3,133 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
-  <title>PintuPembayaran · intro keren</title>
-  <!-- Font Awesome 6 (free) -->
+  <title>PAYMENT X — INTRO PREMIUM</title>
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Font: Inter + Clash Display vibe -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Google Font: Clash Display + Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: #f5f7fe;
-      color: #1a1e2b;
+      font-family: 'Inter', sans-serif;
+      background: #0a0c12;
+      color: white;
       overflow-x: hidden;
     }
 
-    /* INTRO SECTION — fullscreen dengan efek glass */
-    .intro-section {
+    /* CANVAS UNTUK PARTICLES */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* INTRO SECTION */
+    .intro-premium {
+      position: relative;
       min-height: 100vh;
       width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at 10% 30%, #f9f3ff, #eaeef9);
-      position: relative;
-      padding: 2rem;
-      transition: opacity 0.8s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.5);
+      background: radial-gradient(circle at 50% 40%, #141b2b, #0a0c12);
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .glow-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(0,180,255,0.08) 0%, transparent 50%);
+      animation: pulseGlow 4s infinite alternate;
     }
 
     .intro-content {
-      max-width: 900px;
+      max-width: 1000px;
+      padding: 2rem;
       text-align: center;
-      animation: floatIn 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+      position: relative;
+      z-index: 10;
+      animation: fadeScale 1.2s ease;
     }
 
-    .intro-badge {
-      background: rgba(255,255,255,0.5);
-      backdrop-filter: blur(8px);
-      padding: 0.5rem 1.5rem;
-      border-radius: 40px;
+    /* BADGE FUTURISTIK */
+    .neon-badge {
       display: inline-block;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(0,0,0,0.05);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-      font-weight: 600;
-      letter-spacing: 1px;
-      color: #2a3a5e;
-    }
-
-    .intro-title {
-      font-size: clamp(2.5rem, 8vw, 4.8rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1.2rem;
-      background: linear-gradient(145deg, #0b1e33, #2b4b6f);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 2px 10px rgba(50,150,255,0.1);
-    }
-
-    .intro-highlight {
-      background: linear-gradient(145deg, #4568dc, #b06ab3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
-
-    .intro-description {
-      font-size: 1.25rem;
-      color: #2c3e4e;
-      margin-bottom: 2.5rem;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0.9;
-      backdrop-filter: blur(4px);
-      background: rgba(255,255,255,0.2);
-      padding: 1.2rem 2rem;
-      border-radius: 60px;
-      border: 1px solid rgba(255,255,255,0.6);
-    }
-
-    .intro-arrow {
-      margin-top: 2rem;
-      font-size: 2rem;
-      animation: bounce 2s infinite;
-      color: #3a5f7a;
-    }
-
-    .btn-reveal {
-      background: #1f2a48;
-      border: none;
-      color: white;
-      padding: 1rem 2.5rem;
+      padding: 0.6rem 1.8rem;
+      background: rgba(10, 20, 40, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
       border-radius: 50px;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: #a0f0ff;
+      text-shadow: 0 0 10px cyan;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+
+    /* TYPING EFFECT */
+    .typing-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .dynamic-text {
+      font-size: clamp(2.2rem, 10vw, 5rem);
+      font-weight: 800;
+      background: linear-gradient(45deg, #fff, #b0f0ff, #a080ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-right: 4px solid cyan;
+      padding-right: 10px;
+      animation: blinkCursor 1s infinite;
+    }
+
+    .static-text {
+      font-size: clamp(2.2rem, 10vw, 5rem);
+      font-weight: 800;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .glitch-text {
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      color: rgba(220, 240, 255, 0.9);
+      margin: 1.5rem 0 2.5rem;
+      letter-spacing: 2px;
+      position: relative;
+      animation: glitch 3s infinite;
+    }
+
+    /* COUNTER DIGITAL */
+    .ready-counter {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .counter-item {
+      background: rgba(0, 20, 40, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      padding: 0.8rem 1.5rem;
+      border-radius: 16px;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      color: #00ffff;
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+      letter-spacing: 2px;
+    }
+
+    .btn-neon {
+      background: transparent;
+      border: 2px solid #00ffff;
+      color: #00ffff;
+      padding: 1.2rem 3rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 60px;
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 15px;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 15px 25px -8px rgba(0,35,70,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
+      transition: 0.3s;
+      box-shadow: 0 0 25px rgba(0,255,255,0.2);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-reveal i {
-      font-size: 1.3rem;
+    .btn-neon:hover {
+      background: #00ffff;
+      color: black;
+      box-shadow: 0 0 45px cyan;
+      transform: scale(1.08);
+      border-color: cyan;
     }
 
-    .btn-reveal:hover {
-      background: #2e3c62;
-      transform: translateY(-6px);
-      box-shadow: 0 25px 30px -8px rgba(45,80,150,0.25);
+    .btn-neon i {
+      font-size: 1.5rem;
     }
 
-    /* MAIN PAYMENT — hidden until reveal */
-    .payment-wrapper {
-      width: 100%;
-      background: #f5f7fe;
-      display: none; /* di reveal lewat JS */
-      padding: 2.5rem 1.5rem 5rem;
+    /* VIBRATION EFFECT (seperti suara) */
+    .vibrate {
+      animation: vibrate 0.3s ease;
+    }
+
+    @keyframes vibrate {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-3px); }
+      80% { transform: translateX(3px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ANIMASI */
+    @keyframes pulseGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+
+    @keyframes fadeScale {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% { border-color: cyan; }
+      50% { border-color: transparent; }
+    }
+
+    @keyframes glitch {
+      0%, 100% { transform: none; opacity: 1; }
+      7% { transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
+      10% { transform: none; opacity: 1; }
+      27% { transform: none; opacity: 1; }
+      30% { transform: skew(0.8deg, -0.1deg); opacity: 0.8; }
+      35% { transform: none; opacity: 1; }
+    }
+
+    /* PAYMENT AREA (sama seperti sebelumnya, tapi dark theme biar premium) */
+    .payment-premium {
+      background: #0e121a;
+      padding: 4rem 2rem;
+      position: relative;
+      z-index: 5;
+      border-top: 1px solid rgba(0,255,255,0.2);
+      display: none;
     }
 
     .payment-container {
@@ -137,540 +221,321 @@
       margin: 0 auto;
     }
 
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .section-header h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #152c42;
-      position: relative;
-      display: inline-block;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-header h2:after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 20%;
-      width: 60%;
-      height: 4px;
-      background: linear-gradient(90deg, #4568dc, #b06ab3);
-      border-radius: 4px;
-    }
-
-    .payment-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 2.8rem;
-    }
-
-    /* kartu payment */
+    /* DARK CARD STYLE */
     .payment-card {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.5);
+      background: rgba(18, 25, 40, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 230, 255, 0.15);
       border-radius: 36px;
-      padding: 1.8rem 1.8rem 2.2rem;
-      box-shadow: 0 25px 40px -15px rgba(0,0,0,0.05);
-      transition: 0.25s ease;
-      display: flex;
-      flex-direction: column;
+      padding: 1.8rem;
+      box-shadow: 0 20px 35px -5px rgba(0,0,0,0.5);
     }
 
-    .payment-card:hover {
-      background: rgba(255,255,255,0.9);
-      border-color: rgba(156,180,255,0.5);
-      box-shadow: 0 35px 50px -15px rgba(70,120,220,0.15);
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.7rem;
-    }
-
-    .card-header img {
-      height: 52px;
-      width: auto;
-      object-fit: contain;
-      background: white;
-      padding: 8px 14px;
-      border-radius: 20px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-      border: 1px solid #eee;
-    }
-
-    .card-header h3 {
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: #1f2a48;
-      margin: 0;
-    }
-
-    .number-area {
-      background: #ffffffd6;
-      border-radius: 24px;
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid #eaeef5;
-      margin-bottom: 0.8rem;
-      backdrop-filter: blur(4px);
+    .payment-card h3 {
+      color: #d0f0ff;
     }
 
     .nomor-payment {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      color: #0a1c2f;
-      word-break: break-word;
-    }
-
-    .blur-number {
-      filter: blur(5px);
-      transition: 0.2s;
-      user-select: none;
-    }
-
-    .btn-eye {
-      background: transparent;
-      border: 1.5px solid #ccd9f0;
-      border-radius: 40px;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #2a3f5e;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .btn-eye i {
-      font-size: 1.1rem;
-      color: #4568dc;
-    }
-
-    .btn-eye:hover {
-      background: #4568dc;
       color: white;
-      border-color: #4568dc;
+      background: rgba(0,0,0,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 16px;
     }
-    .btn-eye:hover i {
+
+    .btn-eye, .btn-qris-reveal {
+      background: #1f2a44;
+      border: 1px solid cyan;
       color: white;
     }
 
-    /* QRIS SPECIAL */
     .qris-section {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 36px;
-      padding: 2rem 2rem 2.4rem;
-      border: 1px solid rgba(255,255,255,0.6);
-      margin-top: 0.5rem;
-    }
-
-    .qris-dual {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .qris-logo-box {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: white;
-      border-radius: 32px;
-      padding: 1.8rem;
-      border: 1px solid #e2ebf5;
-    }
-
-    .qris-logo-box img {
-      width: 140px;
-      height: auto;
-      margin-bottom: 1rem;
-    }
-
-    .qris-logo-box p {
-      font-weight: 600;
-      color: #2b4b6f;
-      background: #f2f6ff;
-      padding: 0.5rem 1.8rem;
-      border-radius: 50px;
-    }
-
-    .qris-image-box {
-      background: white;
-      border-radius: 32px;
-      padding: 1.8rem;
-      text-align: center;
-      border: 1px solid #e2ebf5;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .qris-foto {
-      max-width: 100%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
-    }
-
-    .blur-qris {
-      filter: blur(10px);
-      transition: 0.2s;
-    }
-
-    .btn-qris-reveal {
-      background: #1f2a48;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      padding: 0.9rem 1.8rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 1rem;
-    }
-
-    .btn-qris-reveal:hover {
-      background: #2e4b6a;
-      transform: scale(1.02);
-    }
-
-    .btn-qris-reveal i {
-      font-size: 1.2rem;
+      background: rgba(18, 25, 40, 0.8);
+      border: 1px solid rgba(0,255,255,0.2);
     }
 
     .small-note {
-      margin-top: 2rem;
-      color: #4e6579;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.95rem;
+      color: #9ab8d9;
     }
 
-    .small-note i {
-      color: #f5b042;
-    }
-
-    @keyframes floatIn {
-      0% { opacity: 0; transform: translateY(35px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-15px); }
-      60% { transform: translateY(-7px); }
-    }
-
-    /* responsive */
-    @media (max-width: 800px) {
-      .payment-grid { grid-template-columns: 1fr; }
-      .qris-dual { grid-template-columns: 1fr; }
-      .intro-title { font-size: 2.8rem; }
-    }
-
-    @media (max-width: 480px) {
-      .number-area { flex-wrap: wrap; gap: 10px; }
-      .nomor-payment { font-size: 1.2rem; }
-    }
-
-    /* utility */
-    .mt-4 { margin-top: 2rem; }
-    .text-center { text-align: center; }
-    .fas, .far, .fab { pointer-events: none; }
-
-    /* class untuk hide/reveal */
-    .blur-active {
-      filter: blur(5px);
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .ready-counter { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
 
-<!-- INTRO SECTION dengan pesan SELAMAT DATANG dan tombol masuk ke payment -->
-<section id="introSection" class="intro-section">
-  <div class="intro-content">
-    <span class="intro-badge">
-      <i class="fas fa-shield-alt" style="margin-right: 8px; color:#4267b2;"></i> ENKRIPSI E2E
-    </span>
-    <h1 class="intro-title">
-      Selamat Datang di <span class="intro-highlight">Payment X</span>
-    </h1>
-    <div class="intro-description">
-      <i class="fas fa-sparkle" style="color: #6c5ce7;"></i> 
-      Cepat, aman, dan transparan. Satu pintu untuk semua pembayaran.
-      <i class="fas fa-sparkle" style="color: #6c5ce7;"></i>
+  <!-- CANVAS PARTICLES (BACKGROUND BERGERAK) -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- INTRO SECTION PREMIUM -->
+  <section class="intro-premium">
+    <div class="glow-overlay"></div>
+    
+    <div class="intro-content">
+      <span class="neon-badge">
+        <i class="fas fa-bolt"></i> SECURE 256BIT <i class="fas fa-bolt"></i>
+      </span>
+
+      <!-- TYPING EFFECT -->
+      <div class="typing-wrapper">
+        <span id="typingElement" class="dynamic-text"></span>
+        <span class="static-text">✨</span>
+      </div>
+
+      <h2 class="glitch-text">
+        <i class="fas fa-shield-halved"></i> 
+        TERENKRIPSI · TANPA BATAS 
+        <i class="fas fa-shield-halved"></i>
+      </h2>
+
+      <!-- COUNTER EFFECT (seperti loading system) -->
+      <div class="ready-counter">
+        <div class="counter-item" id="counter1">00</div>
+        <div class="counter-item" id="counter2">00</div>
+        <div class="counter-item" id="counter3">00</div>
+      </div>
+
+      <!-- TOMBOL DENGAN EFEK GETAR (VIRTUAL SOUND) -->
+      <button id="enterPaymentBtn" class="btn-neon">
+        <i class="fas fa-eye"></i> BUKA PAYMENT 
+        <i class="fas fa-arrow-right"></i>
+      </button>
+
+      <div style="margin-top: 2.5rem; color: rgba(180,240,255,0.5); font-size: 0.9rem;">
+        <i class="fas fa-volume-up"></i> efek suara virtual (getaran)
+      </div>
     </div>
-    <!-- tombol dengan ikon mata, reveal payment -->
-    <button id="revealPaymentBtn" class="btn-reveal">
-      <i class="fas fa-eye"></i> Lihat metode payment
-      <i class="fas fa-arrow-right" style="font-size: 0.9rem;"></i>
-    </button>
-    <div class="intro-arrow">
-      <i class="fas fa-chevron-down"></i>
+  </section>
+ <!-- PAYMENT AREA (SAMA SEPERTI SEBELUMNYA, TEMA GELAP) -->
+  <div id="paymentArea" class="payment-premium">
+    <div class="payment-container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="color: white; font-size: 2.5rem; text-shadow: 0 0 10px cyan;">
+          <i class="fas fa-unlock-alt" style="color: cyan;"></i> PINTU PEMBAYARAN
+        </h2>
+        <p style="color: #aad0ff;">klik 👁️ untuk menampilkan nomor / QR</p>
+      </div>
+
+      <!-- GRID DANA & SEABANK -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem;">
+        <!-- DANA CARD -->
+        <div class="payment-card">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" style="height: 50px; background: white; padding: 8px; border-radius: 16px;" alt="Dana">
+            <h3 style="font-size: 1.8rem;">DANA</h3>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 1.2rem; border-radius: 20px;">
+            <span id="danaNumber" class="nomor-payment" style="filter: blur(5px);">087753513090</span>
+            <button id="toggleDanaBtn" class="btn-eye" style="display: flex; gap: 8px;">
+              <i class="fas fa-eye-slash"></i> Tampilkan
+            </button>
+          </div>
+        </div>
+        <!-- SEABANK CARD -->
+        <div class="payment-card">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" style="height: 50px; background: white; padding: 8px; border-radius: 16px;" alt="Seabank">
+            <h3 style="font-size: 1.8rem;">SEABANK</h3>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 1.2rem; border-radius: 20px;">
+            <span id="seabankNumber" class="nomor-payment" style="filter: blur(5px);">901517870612</span>
+            <button id="toggleSeabankBtn" class="btn-eye" style="display: flex; gap: 8px;">
+              <i class="fas fa-eye-slash"></i> Tampilkan
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QRIS SECTION -->
+      <div class="qris-section" style="padding: 2rem; border-radius: 36px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+          <div style="text-align: center; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 24px;">
+            <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" style="width: 140px;" alt="Logo QRIS">
+            <p style="color: cyan; margin-top: 1rem;">Logo Resmi QRIS</p>
+          </div>
+          <div style="text-align: center;">
+            <img id="qrisImage" src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" style="width: 100%; max-width: 300px; border-radius: 20px; filter: blur(10px); margin-bottom: 1rem;" alt="QRIS">
+            <button id="toggleQrisBtn" class="btn-qris-reveal" style="padding: 1rem 2rem;">
+              <i class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️
+            </button>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem; color: #8bb0cc;">
+        <i class="fas fa-shield"></i> data aman · klik mata untuk lihat
+      </div>
     </div>
   </div>
-</section>
 
-<!-- MAIN PAYMENT AREA (awalnya tersembunyi) -->
-<div id="paymentArea" class="payment-wrapper">
-  <div class="payment-container">
+  <script>
+    // ==================== PARTICLES BACKGROUND ====================
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
-    <!-- header bagian payment -->
-    <div class="section-header">
-      <h2><i class="fas fa-bolt" style="margin-right: 12px; color: #4a6fa5;"></i> PINTU PEMBAYARAN</h2>
-      <p style="color: #4b6584; margin-top: 0.7rem;">klik ikon 👁️ untuk menampilkan nomor / QR code</p>
-    </div>
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
 
-    <!-- GRID DANA & SEABANK -->
-    <div class="payment-grid">
-      
-      <!-- CARD DANA -->
-      <div class="payment-card">
-        <div class="card-header">
-          <img src="https://images.bukaolshop.com/hosting/181218/f2f4904ff62a785161.png" alt="Logo Dana" loading="lazy">
-          <h3>DANA</h3>
-        </div>
-        <div class="number-area">
-          <span id="danaNumberDisplay" class="nomor-payment blur-number">087753513090</span>
-          <button id="toggleDanaBtn" class="btn-eye">
-            <i id="danaEyeIcon" class="fas fa-eye-slash"></i> Tampilkan
-          </button>
-        </div>
-        <p style="color: #3a546d; font-size: 0.95rem; margin-top: 0.3rem;">
-          <i class="fas fa-check-circle" style="color: #00b894;"></i> aktif · terverifikasi
-        </p>
-      </div>
+    function createParticles() {
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 0.5,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+          color: `rgba(0, ${Math.floor(200 + Math.random() * 55)}, 255, ${Math.random() * 0.5})`
+        });
+      }
+    }
 
-      <!-- CARD SEABANK -->
-      <div class="payment-card">
-        <div class="card-header">
-          <img src="https://images.bukaolshop.com/hosting/181218/0d46bd2ba133491753.png" alt="Logo Seabank" loading="lazy">
-          <h3>SeaBank</h3>
-        </div>
-        <div class="number-area">
-          <span id="seabankNumberDisplay" class="nomor-payment blur-number">901517870612</span>
-          <button id="toggleSeabankBtn" class="btn-eye">
-            <i id="seabankEyeIcon" class="fas fa-eye-slash"></i> Tampilkan
-          </button>
-        </div>
-        <p style="color: #3a546d; font-size: 0.95rem; margin-top: 0.3rem;">
-          <i class="fas fa-check-circle" style="color: #00b894;"></i> Seabank syariah
-        </p>
-      </div>
-    </div>
-
-    <!-- QRIS AREA – dengan logo kecil dulu & foto qris, blur awal, tombol mata 👁️-->
-    <div class="qris-section">
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 2rem;">
-        <i class="fas fa-qrcode" style="font-size: 2rem; color: #2c3e50;"></i>
-        <h3 style="font-size: 1.9rem; font-weight: 700; color: #1e2b3c;">QRIS</h3>
-        <span style="background: #2c3e50; color: white; padding: 0.2rem 1rem; border-radius: 40px; font-size: 0.9rem;">UNIVERSAL</span>
-      </div>
-      
-      <div class="qris-dual">
-        <!-- kiri: logo qris kecil -->
-        <div class="qris-logo-box">
-          <img src="https://images.bukaolshop.com/hosting/181218/111e83c3a6f5204498.png" alt="Logo Qris kecil" loading="lazy">
-          <p><i class="fas fa-regular fa-circle-check"></i> Logo Resmi QRIS</p>
-          <span style="margin-top: 0.8rem; font-size: 0.9rem; color: #48637c;">scan disini</span>
-        </div>
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
         
-        <!-- kanan: foto qris dengan efek blur dan tombol eye -->
-        <div class="qris-image-box">
-          <img id="qrisFotoElement" src="https://images.bukaolshop.com/hosting/181218/cce817858ef1663896.png" alt="QRIS Code" class="qris-foto blur-qris" loading="lazy">
-          <button id="toggleQrisBtn" class="btn-qris-reveal">
-            <i id="qrisEyeIcon" class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️
-          </button>
-          <p style="margin-top: 1rem; font-size: 0.9rem; color: #4a627a;"><i class="fas fa-clock"></i> scan pake mbanking / ewallet</p>
-        </div>
-      </div>
-    </div>
+        p.x += p.speedX;
+        p.y += p.speedY;
+        
+        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+      }
+      requestAnimationFrame(drawParticles);
+    }
 
-    <div class="small-note">
-      <i class="fas fa-shield"></i>  data dilindungi · hanya tampil setelah verifikasi mata 
-      <i class="fas fa-eye" style="margin-left: 8px;"></i>
-    </div>
-  </div>
-</div>
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      particles = [];
+      createParticles();
+    });
 
-<script>
-  (function() {
-    "use strict";
+    resizeCanvas();
+    createParticles();
+    drawParticles();
 
-    // INTRO : tombol reveal untuk menampilkan payment section & scroll
-    const introSection = document.getElementById('introSection');
+    // ==================== TYPING EFFECT ====================
+    const typingElement = document.getElementById('typingElement');
+    const texts = ['Selamat Datang', 'di Payment X', '100% Aman', 'Super Cepat'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+      const currentText = texts[textIndex];
+      
+      if (isDeleting) {
+        typingElement.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typingElement.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 2000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+      }
+    }
+    typeEffect();
+
+    // ==================== COUNTER ANIMATION ====================
+    function animateCounter(elementId, target) {
+      let count = 0;
+      const interval = setInterval(() => {
+        count += Math.floor(Math.random() * 10) + 1;
+        if (count >= target) {
+          document.getElementById(elementId).textContent = target.toString().padStart(2, '0');
+          clearInterval(interval);
+        } else {
+          document.getElementById(elementId).textContent = count.toString().padStart(2, '0');
+        }
+      }, 80);
+    }
+    animateCounter('counter1', 99);
+    animateCounter('counter2', 88);
+    animateCounter('counter3', 77);
+
+    // ==================== REVEAL PAYMENT + EFEK GETAR ====================
+    const enterBtn = document.getElementById('enterPaymentBtn');
     const paymentArea = document.getElementById('paymentArea');
-    const revealBtn = document.getElementById('revealPaymentBtn');
 
-    // state untuk nomor DANA, SEABANK, QRIS
-    const danaSpan = document.getElementById('danaNumberDisplay');
-    const seabankSpan = document.getElementById('seabankNumberDisplay');
-    const danaBtn = document.getElementById('toggleDanaBtn');
-    const seabankBtn = document.getElementById('toggleSeabankBtn');
-    const danaIcon = document.getElementById('danaEyeIcon');
-    const seabankIcon = document.getElementById('seabankEyeIcon');
-
-    // qris element
-    const qrisFoto = document.getElementById('qrisFotoElement');
-    const qrisBtn = document.getElementById('toggleQrisBtn');
-    const qrisIcon = document.getElementById('qrisEyeIcon');
-
-    // ========== REVEAL PAYMENT AREA ==========
-    // saat tombol "Lihat metode payment" diklik: munculkan area, sembunyikan intro dengan smooth? 
-    // tapi lebih baik intro tetap ada, payment muncul di bawahnya, dan scroll smooth
-    revealBtn.addEventListener('click', function(e) {
-      // tampilkan payment area (style display block)
+    enterBtn.addEventListener('click', function(e) {
+      // Efek getar (virtual sound)
+      this.classList.add('vibrate');
+      setTimeout(() => this.classList.remove('vibrate'), 300);
+      
+      // Munculkan payment area
       paymentArea.style.display = 'block';
       
-      // scroll ke payment area dengan mulus
+      // Scroll smooth
       setTimeout(() => {
-        paymentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 80);
-      
-      // bonus: tambahkan sedikit efek pada tombol
+        paymentArea.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
     });
 
-    // secara default paymentArea tersembunyi (style display none dari CSS). 
-    // tapi biar setelah itu muncul, kita set display block saat tombol diklik.
-
-    // ========== FUNGSI TOGGLE UNTUK DANA ==========
-    let danaBlurred = true; // true berarti blur aktif
+    // ==================== TOGGLE DANA, SEABANK, QRIS ====================
+    // DANA
+    const danaSpan = document.getElementById('danaNumber');
+    const danaBtn = document.getElementById('toggleDanaBtn');
+    let danaBlur = true;
     danaBtn.addEventListener('click', function() {
-      if (danaBlurred) {
-        danaSpan.classList.remove('blur-number');
+      if (danaBlur) {
         danaSpan.style.filter = 'none';
-        danaIcon.className = 'fas fa-eye'; // ganti ikon mata terbuka
-        danaBtn.innerHTML = '<i id="danaEyeIcon" class="fas fa-eye"></i> Sembunyikan';
-        danaBlurred = false;
+        danaBtn.innerHTML = '<i class="fas fa-eye"></i> Sembunyikan';
+        danaBlur = false;
       } else {
-        danaSpan.classList.add('blur-number');
         danaSpan.style.filter = 'blur(5px)';
-        danaIcon.className = 'fas fa-eye-slash';
-        danaBtn.innerHTML = '<i id="danaEyeIcon" class="fas fa-eye-slash"></i> Tampilkan';
-        danaBlurred = true;
+        danaBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tampilkan';
+        danaBlur = true;
       }
     });
 
-    // ========== TOGGLE SEABANK ==========
-    let seabankBlurred = true;
+    // SEABANK
+    const seabankSpan = document.getElementById('seabankNumber');
+    const seabankBtn = document.getElementById('toggleSeabankBtn');
+    let seabankBlur = true;
     seabankBtn.addEventListener('click', function() {
-      if (seabankBlurred) {
-        seabankSpan.classList.remove('blur-number');
+      if (seabankBlur) {
         seabankSpan.style.filter = 'none';
-        seabankIcon.className = 'fas fa-eye';
-        seabankBtn.innerHTML = '<i id="seabankEyeIcon" class="fas fa-eye"></i> Sembunyikan';
-        seabankBlurred = false;
+        seabankBtn.innerHTML = '<i class="fas fa-eye"></i> Sembunyikan';
+        seabankBlur = false;
       } else {
-        seabankSpan.classList.add('blur-number');
         seabankSpan.style.filter = 'blur(5px)';
-        seabankIcon.className = 'fas fa-eye-slash';
-        seabankBtn.innerHTML = '<i id="seabankEyeIcon" class="fas fa-eye-slash"></i> Tampilkan';
-        seabankBlurred = true;
+        seabankBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tampilkan';
+        seabankBlur = true;
       }
     });
 
-    // ========== TOGGLE QRIS FOTO ==========
-    let qrisBlurred = true; // true : blur
+    // QRIS
+    const qrisImage = document.getElementById('qrisImage');
+    const qrisBtn = document.getElementById('toggleQrisBtn');
+    let qrisBlur = true;
     qrisBtn.addEventListener('click', function() {
-      if (qrisBlurred) {
-        qrisFoto.classList.remove('blur-qris');
-        qrisFoto.style.filter = 'none';
-        qrisIcon.className = 'fas fa-eye';
-        qrisBtn.innerHTML = '<i id="qrisEyeIcon" class="fas fa-eye"></i> Sembunyikan Kode QRIS 👁️';
-        qrisBlurred = false;
+      if (qrisBlur) {
+        qrisImage.style.filter = 'none';
+        qrisBtn.innerHTML = '<i class="fas fa-eye"></i> Sembunyikan Kode QRIS 👁️';
+        qrisBlur = false;
       } else {
-        qrisFoto.classList.add('blur-qris');
-        qrisFoto.style.filter = 'blur(10px)';
-        qrisIcon.className = 'fas fa-eye-slash';
-        qrisBtn.innerHTML = '<i id="qrisEyeIcon" class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️';
-        qrisBlurred = true;
+        qrisImage.style.filter = 'blur(10px)';
+        qrisBtn.innerHTML = '<i class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️';
+        qrisBlur = true;
       }
     });
 
-    // inisialisasi awal: pastikan blur active dan ikon sesuai
-    // dana & seabank sudah punya class 'blur-number' di HTML, qris foto class 'blur-qris'
-    // tinggal sinkronkan icon dan innerHTML tombol agar sesuai "Tampilkan"
-    // dana
-    danaSpan.classList.add('blur-number');
-    danaSpan.style.filter = 'blur(5px)';
-    danaIcon.className = 'fas fa-eye-slash';
-    danaBtn.innerHTML = '<i id="danaEyeIcon" class="fas fa-eye-slash"></i> Tampilkan';
-    danaBlurred = true;
-    // seabank
-    seabankSpan.classList.add('blur-number');
-    seabankSpan.style.filter = 'blur(5px)';
-    seabankIcon.className = 'fas fa-eye-slash';
-    seabankBtn.innerHTML = '<i id="seabankEyeIcon" class="fas fa-eye-slash"></i> Tampilkan';
-    seabankBlurred = true;
-    // qris 
-    qrisFoto.classList.add('blur-qris');
-    qrisFoto.style.filter = 'blur(10px)';
-    qrisIcon.className = 'fas fa-eye-slash';
-    qrisBtn.innerHTML = '<i id="qrisEyeIcon" class="fas fa-eye-slash"></i> Tampilkan Kode QRIS 👁️';
-    qrisBlurred = true;
-
-    // tambahan: jika user penasaran, intro awalnya, paymentArea tersembunyi.
-    // kita sembunyikan payment area di awal.
+    // Sembunyikan payment area di awal
     paymentArea.style.display = 'none';
-
-    // tapi jika layar lebar dan ingin langsung akses? gak papa, user klik tombol dulu.
-    // Tapi pastikan jika diresize, tetap konsisten.
-
-    // optional: jika seseorang klik logo dll, fine.
-
-  })();
-</script>
-
-<!-- small extra style for blur -->
-<style>
-  .blur-number {
-    filter: blur(5px);
-  }
-  .blur-qris {
-    filter: blur(10px);
-  }
-  /* pastikan ikon eye-slash dan eye tampil */
-  .btn-eye i, .btn-qris-reveal i {
-    pointer-events: none;
-  }
-  /* fallback */
-  .intro-section {
-    background: radial-gradient(circle at 80% 20%, #fff5f0, #edf2fb);
-  }
-  .payment-card, .qris-section {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  body {
-    background: #f1f5fe;
-  }
-</style>
-
-<!-- opsional: embed font lebih stabil -->
+  </script>
 </body>
-</html>
+</html> 
